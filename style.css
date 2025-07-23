@@ -1,0 +1,698 @@
+/* Plant Drinker Custom Styles */
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #e3f2fd 0%, #f1f8e9 100%);
+    min-height: 100vh;
+}
+
+/* Plant Display */
+.plant-container {
+    background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+}
+
+.plant-display {
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.plant-scene {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.plant-sprite {
+position: absolute;
+z-index: 1;                    /* Behind pot */
+left: 50%;
+transform: translateX(-50%);
+width: auto;
+height: auto;
+max-width: 60px;               /* Larger size */
+max-height: 120px;             /* Larger size */
+transition: filter 0.3s, opacity 0.3s;
+image-rendering: pixelated;
+image-rendering: -moz-crisp-edges;
+image-rendering: crisp-edges;
+transform-origin: center bottom;
+bottom: 45px; /* Adjusted for smaller pot */
+}
+
+.plant-pot {
+position: absolute;
+z-index: 2;                    /* In front of plant */
+bottom: 0;                     /* Aligned to bottom */
+left: 50%;
+transform: translateX(-50%);
+image-rendering: pixelated;
+image-rendering: -moz-crisp-edges;
+image-rendering: crisp-edges;
+height: 45px;                  /* Smaller pot */
+max-height: 45px;
+width: auto;
+max-width: 100%;
+}
+/* First sprite entry animation */
+.plant-sprite.plant-entry {
+    animation: plantEntry 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes plantEntry {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) scale(0.7);
+        filter: brightness(0.8);
+    }
+    60% {
+        opacity: 1;
+        transform: translateX(-50%) scale(1.1);
+        filter: brightness(1.05);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(-50%) scale(1);
+        filter: brightness(1);
+    }
+}
+
+.plant-placeholder {
+    display: none; /* Hide placeholder so it doesn't affect layout */
+}
+
+/* Cards */
+.card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+}
+
+/* Buttons */
+.intake-btn {
+    height: 85px;
+    border-radius: 15px;
+    transition: all 0.2s ease;
+    background: linear-gradient(145deg, #007bff 0%, #0056b3 100%);
+    border: none;
+    position: relative;
+    overflow: hidden;
+    font-weight: 500;
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.2);
+}
+
+.intake-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+}
+
+.intake-btn:active {
+    transform: translateY(0px);
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.2);
+}
+
+#newCustomBtn {
+    height: 85px;
+    border-radius: 15px;
+    border: 2px solid #6c757d;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    background: transparent;
+}
+
+#newCustomBtn:hover {
+    background: #6c757d;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
+}
+
+#newCustomBtn:active {
+    transform: translateY(0px);
+}
+
+#thirdBtn.btn-success {
+    background: linear-gradient(145deg, #28a745 0%, #1e7e34 100%);
+    box-shadow: 0 2px 8px rgba(40, 167, 69, 0.2);
+}
+
+#thirdBtn.btn-success:hover {
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+}
+
+/* Progress Bar */
+.progress {
+    border-radius: 10px;
+    background-color: #e9ecef;
+    overflow: hidden;
+}
+
+.progress-bar {
+    transition: width 0.5s ease-in-out;
+    background: linear-gradient(90deg, #17a2b8 0%, #138496 100%);
+}
+
+/* Recent Activity */
+.recent-activity {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.activity-item {
+    padding: 8px 12px;
+    margin: 4px 0;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #17a2b8;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.2s ease;
+}
+
+.activity-item:hover {
+    background: #e9ecef;
+}
+
+.activity-amount {
+    font-weight: 600;
+    color: #17a2b8;
+}
+
+.activity-time {
+    font-size: 0.85rem;
+    color: #6c757d;
+}
+
+/* Custom Input Animation */
+#customInput {
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Success Animation */
+.success-pulse {
+    animation: successPulse 0.6s ease-out;
+}
+
+@keyframes successPulse {
+    0% {
+        background-color: #28a745;
+        transform: scale(1);
+    }
+    50% {
+        background-color: #20c997;
+        transform: scale(1.05);
+    }
+    100% {
+        background-color: #28a745;
+        transform: scale(1);
+    }
+}
+
+/* Enhanced Plant Growth Animation - Bottom-up Growing */
+.plant-grow {
+    animation: plantGrowFromBottom 1.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes plantGrowFromBottom {
+    0% {
+        transform: translateX(-50%) scaleY(0.3) scaleX(0.8);
+        opacity: 0.3;
+        filter: brightness(0.9);
+        transform-origin: center bottom;
+    }
+    25% {
+        transform: translateX(-50%) scaleY(0.7) scaleX(0.9);
+        opacity: 0.6;
+        filter: brightness(1.05);
+    }
+    50% {
+        transform: translateX(-50%) scaleY(1.1) scaleX(1.05);
+        opacity: 0.9;
+        filter: brightness(1.15);
+    }
+    75% {
+        transform: translateX(-50%) scaleY(1.05) scaleX(1.02);
+        opacity: 1;
+        filter: brightness(1.1);
+    }
+    100% {
+        transform: translateX(-50%) scaleY(1) scaleX(1);
+        opacity: 1;
+        filter: brightness(1);
+        transform-origin: center bottom;
+    }
+}
+
+/* Plant Wilting Animation */
+.plant-wilt {
+    animation: plantWilt 1s ease-in-out;
+}
+
+@keyframes plantWilt {
+    0% {
+        transform: translateX(-50%) scale(1) rotate(0deg);
+        filter: brightness(1);
+    }
+    50% {
+        transform: translateX(-50%) scale(0.95) rotate(-2deg);
+        filter: brightness(0.7) saturate(0.8);
+    }
+    100% {
+        transform: translateX(-50%) scale(0.9) rotate(-1deg);
+        filter: brightness(0.6) saturate(0.7);
+    }
+}
+
+/* Plant Recovery Animation */
+.plant-recover {
+    animation: plantRecover 1.2s ease-out;
+}
+
+@keyframes plantRecover {
+    0% {
+        transform: translateX(-50%) scale(0.9) rotate(-1deg);
+        filter: brightness(0.6) saturate(0.7);
+    }
+    30% {
+        transform: translateX(-50%) scale(0.95) rotate(0deg);
+        filter: brightness(0.8) saturate(0.9);
+    }
+    70% {
+        transform: translateX(-50%) scale(1.05) rotate(1deg);
+        filter: brightness(1.1) saturate(1.1);
+    }
+    100% {
+        transform: translateX(-50%) scale(1) rotate(0deg);
+        filter: brightness(1) saturate(1);
+    }
+}
+
+/* Wilted plant state styling */
+.plant-wilted {
+filter: brightness(0.6) saturate(0.7);
+transform: translateX(-50%) rotate(-1deg);
+}
+
+/* Mobile Optimizations */
+@media (max-width: 576px) {
+    .container-fluid {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+    
+    body {
+        font-size: 14px;
+    }
+    
+    /* Larger touch targets for mobile */
+    .intake-btn {
+        height: 75px;
+        font-size: 0.8rem;
+        border-radius: 12px;
+    }
+    
+    #newCustomBtn {
+        height: 75px;
+        font-size: 0.8rem;
+        border-radius: 12px;
+    }
+    
+    .plant-display {
+        height: 280px;              /* Larger display area for bigger sprites */
+    }
+    
+    .plant-sprite {
+        max-height: 140px;         /* Larger on mobile */
+        bottom: 40px;              /* Adjusted for smaller mobile pot */
+    }
+    
+    .plant-pot {
+        height: 40px;              /* Smaller pot on mobile */
+        max-height: 40px;
+    }
+    
+    /* Tighter spacing on mobile */
+    .card {
+        margin-bottom: 1rem !important;
+    }
+    
+    .card-body {
+        padding: 1rem 0.75rem;
+    }
+    
+    .row.g-2 {
+        --bs-gutter-x: 0.375rem;
+    }
+    
+    /* Better header spacing */
+    header {
+        padding: 1rem 0 !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    h1 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Extra small devices - very tight layout */
+@media (max-width: 375px) {
+    .intake-btn, #newCustomBtn {
+        height: 70px;
+        font-size: 0.75rem;
+    }
+    
+    .container-fluid {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    
+    .card-body {
+        padding: 0.75rem 0.5rem;
+    }
+}
+
+/* PWA Install Button */
+.install-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+/* Notification Permission Banner */
+.notification-banner {
+    background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+    color: white;
+    padding: 10px;
+    text-align: center;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+/* Loading State */
+.loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #007bff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Settings Modal Enhancements */
+.settings-section {
+    border-bottom: 1px solid #e9ecef;
+    padding-bottom: 1rem;
+}
+
+.settings-section:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.target-preset {
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.target-preset:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.2);
+}
+
+.target-preset.btn-primary {
+    background: linear-gradient(145deg, #007bff 0%, #0056b3 100%);
+    border-color: #007bff;
+}
+
+.btn-check:checked + .btn {
+    background: linear-gradient(145deg, #6c757d 0%, #495057 100%);
+    border-color: #6c757d;
+    color: white;
+}
+
+.form-control-lg {
+    border-radius: 10px;
+    border: 2px solid #e9ecef;
+    transition: all 0.2s ease;
+}
+
+.form-control-lg:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.1);
+}
+
+/* Modal improvements */
+.modal-content {
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.modal-header {
+    border-radius: 20px 20px 0 0;
+}
+
+/* Enhanced switch styling */
+.form-check-input:checked {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.1);
+}
+
+/* Daily Summary Styling - COMMENTED OUT */
+/*
+.stat-item {
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.stat-item:hover {
+    background-color: #f8f9fa;
+    transform: translateY(-1px);
+}
+
+.stat-number {
+    font-size: 1.5rem;
+    font-weight: bold;
+    line-height: 1.2;
+}
+
+.stat-item small {
+    display: block;
+    margin-top: 0.25rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+#editIndicator {
+    background: linear-gradient(135deg, #e3f2fd 0%, #f1f8e9 100%);
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
+    border-left: 4px solid #007bff;
+}
+*/
+
+/* Edit and Reset Button Styling */
+#editIntakeBtn:hover {
+    background: #007bff;
+    color: white;
+    transform: translateY(-1px);
+}
+
+#resetDayBtn:hover {
+    background: #dc3545;
+    color: white;
+    transform: translateY(-1px);
+}
+
+/* Modal enhancements for edit functionality */
+.alert {
+    border-radius: 10px;
+    border: none;
+}
+
+.alert-warning {
+    background: linear-gradient(135deg, #fff3cd 0%, #fdf4d8 100%);
+    color: #856404;
+}
+
+.alert-danger {
+    background: linear-gradient(135deg, #f8d7da 0%, #fbe2e4 100%);
+    color: #721c24;
+}
+
+/* Custom Amount Modal Styling */
+.custom-modal .modal-header {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    border-radius: 20px 20px 0 0;
+}
+
+.custom-input-container {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    max-width: 300px;
+}
+
+.custom-amount-input {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    border: 3px solid #e9ecef;
+    border-radius: 15px;
+    height: 80px;
+    padding-right: 60px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    transition: all 0.3s ease;
+}
+
+.custom-amount-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.3rem rgba(0, 123, 255, 0.15);
+    background: white;
+}
+
+.input-suffix {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #6c757d;
+    pointer-events: none;
+}
+
+.preset-btn {
+    height: 50px;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    border: 2px solid #007bff;
+}
+
+.preset-btn:hover {
+    background: #007bff;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+}
+
+.preset-btn:active, .preset-btn.active {
+    background: #0056b3;
+    border-color: #0056b3;
+    color: white;
+    transform: translateY(0);
+}
+
+/* Modal bottom-sheet style for mobile */
+@media (max-width: 576px) {
+    .custom-modal .modal-dialog {
+        margin: 0;
+        max-width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: flex-end;
+    }
+    
+    .custom-modal .modal-content {
+        border-radius: 25px 25px 0 0;
+        max-height: 70vh;
+        margin-bottom: 0;
+    }
+    
+    .custom-amount-input {
+        font-size: 1.75rem;
+        height: 70px;
+    }
+    
+    .input-suffix {
+        font-size: 1.25rem;
+        right: 15px;
+    }
+    
+    .preset-btn {
+        height: 45px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Settings responsive design */
+@media (max-width: 576px) {
+    .modal-dialog {
+        margin: 0.5rem;
+    }
+    
+    .modal-body {
+        padding: 1.5rem !important;
+    }
+    
+    .target-preset {
+        font-size: 0.85rem;
+        padding: 0.375rem 0.25rem;
+    }
+    
+    .settings-section {
+        margin-bottom: 1.5rem !important;
+    }
+    
+    .stat-number {
+        font-size: 1.25rem;
+    }
+    
+    .stat-item {
+        padding: 0.375rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    #editIndicator {
+        padding: 0.375rem 0.5rem;
+        font-size: 0.85rem;
+    }
+}
