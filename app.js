@@ -18,6 +18,7 @@ class PlantDrinkerApp {
             notifications: false,
             reminderInterval: 2
         };
+        this.preloadedImages = new Map(); // Cache for pre-loaded images
         
         this.init();
     }
@@ -32,6 +33,7 @@ class PlantDrinkerApp {
         // Remove broken progress logic from init, handled in updatePlantStage
         this.updatePlantStage();
         this.initializeChart();
+        this.preloadPlantSprites(); // Pre-load all plant stage images
     }
 
     setupEventListeners() {
@@ -335,14 +337,40 @@ class PlantDrinkerApp {
 
     animatePlantGrowth() {
         const plantSprite = document.getElementById('plantSprite');
+        const plantSpriteSecondary = document.getElementById('plantSpriteSecondary');
+        
+        // Pre-load the new stage image on the secondary sprite
+        plantSpriteSecondary.src = `assets/plant-sprites/stage-${this.plantStage}.png`;
+        
+        // Cross-fade transition: fade in secondary, fade out primary
+        plantSpriteSecondary.style.opacity = '1';
+        plantSprite.style.opacity = '0';
+        
+        // Apply growth animation to both sprites for better effect
+        plantSpriteSecondary.classList.add('plant-grow');
         plantSprite.classList.add('plant-grow');
+        
+        // After transition completes, swap sprites and reset
         setTimeout(() => {
+            // Swap the sprites: secondary becomes primary
+            plantSprite.src = plantSpriteSecondary.src;
+            plantSprite.style.opacity = '1';
+            plantSpriteSecondary.style.opacity = '0';
+            
+            // Remove animation classes
             plantSprite.classList.remove('plant-grow');
-        }, 1200);
+            plantSpriteSecondary.classList.remove('plant-grow');
+        }, 1200); // Timing matches CSS animation duration
     }
 
     animatePlantWilting() {
         const plantSprite = document.getElementById('plantSprite');
+        const plantSpriteSecondary = document.getElementById('plantSpriteSecondary');
+        
+        // Ensure secondary sprite is hidden during wilting
+        plantSpriteSecondary.style.opacity = '0';
+        plantSprite.style.opacity = '1';
+        
         plantSprite.classList.add('plant-wilt');
         setTimeout(() => {
             plantSprite.classList.remove('plant-wilt');
@@ -352,11 +380,35 @@ class PlantDrinkerApp {
 
     animatePlantRecovery() {
         const plantSprite = document.getElementById('plantSprite');
+        const plantSpriteSecondary = document.getElementById('plantSpriteSecondary');
+        
+        // Ensure secondary sprite is hidden during recovery
+        plantSpriteSecondary.style.opacity = '0';
+        plantSprite.style.opacity = '1';
+        
         plantSprite.classList.remove('plant-wilted');
         plantSprite.classList.add('plant-recover');
         setTimeout(() => {
             plantSprite.classList.remove('plant-recover');
         }, 1200);
+    }
+
+    preloadPlantSprites() {
+        // Pre-load all plant stage images for smooth transitions
+        const stages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 'wilted'];
+        
+        stages.forEach(stage => {
+            if (!this.preloadedImages.has(stage)) {
+                const img = new Image();
+                img.src = `assets/plant-sprites/stage-${stage}.png`;
+                img.onload = () => {
+                    this.preloadedImages.set(stage, img);
+                };
+                img.onerror = () => {
+                    console.warn(`Failed to preload plant sprite: stage-${stage}.png`);
+                };
+            }
+        });
     }
 
     updateDisplay() {
@@ -379,19 +431,30 @@ class PlantDrinkerApp {
         }
 
         const plantSprite = document.getElementById('plantSprite');
+        const plantSpriteSecondary = document.getElementById('plantSpriteSecondary');
         const plantPot = document.getElementById('plantPot');
+        
         if (this.currentIntake === 0) {
             plantSprite.style.display = 'none';
+            plantSpriteSecondary.style.display = 'none';
             plantPot.style.display = 'block';
         } else {
             plantSprite.style.display = 'block';
+            plantSpriteSecondary.style.display = 'block';
             plantPot.style.display = 'block';
+            
             if (this.isWilted) {
                 plantSprite.src = `assets/plant-sprites/stage-wilted.png`;
                 plantSprite.classList.add('plant-wilted');
+                plantSprite.style.opacity = '1';
+                plantSpriteSecondary.style.opacity = '0';
             } else {
-                plantSprite.src = `assets/plant-sprites/stage-${this.plantStage}.png`;
+                // Only update sprite source if not in the middle of a transition
+                if (plantSpriteSecondary.style.opacity === '0' || plantSpriteSecondary.style.opacity === '') {
+                    plantSprite.src = `assets/plant-sprites/stage-${this.plantStage}.png`;
+                }
                 plantSprite.classList.remove('plant-wilted');
+                
                 // Animate first sprite entry
                 if (this.plantStage === 1 && this.todayData.length === 1) {
                     plantSprite.classList.add('plant-entry');

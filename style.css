@@ -39,14 +39,18 @@ left: 50%;
 transform: translateX(-50%);
 width: auto;
 height: auto;
-max-width: 60px;               /* Larger size */
-max-height: 120px;             /* Larger size */
-transition: filter 0.3s, opacity 0.3s;
+max-width: 120px;              /* Doubled size for better visibility */
+max-height: 200px;             /* Doubled size for better visibility */
+transition: filter 0.3s, opacity 1.2s ease-in-out;
 image-rendering: pixelated;
 image-rendering: -moz-crisp-edges;
 image-rendering: crisp-edges;
 transform-origin: center bottom;
-bottom: 45px; /* Adjusted for smaller pot */
+bottom: 15px; /* Deeply buried in the much larger pot */
+}
+
+.plant-sprite-secondary {
+transition: filter 0.3s, opacity 1.2s ease-in-out;
 }
 
 .plant-pot {
@@ -58,8 +62,8 @@ transform: translateX(-50%);
 image-rendering: pixelated;
 image-rendering: -moz-crisp-edges;
 image-rendering: crisp-edges;
-height: 45px;                  /* Smaller pot */
-max-height: 45px;
+height: 130px;                 /* Much larger pot for prominent display */
+max-height: 130px;
 width: auto;
 max-width: 100%;
 }
@@ -236,35 +240,58 @@ max-width: 100%;
 
 /* Enhanced Plant Growth Animation - Bottom-up Growing */
 .plant-grow {
-    animation: plantGrowFromBottom 1.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    animation: plantGrowFromBottom 1.2s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 @keyframes plantGrowFromBottom {
     0% {
-        transform: translateX(-50%) scaleY(0.3) scaleX(0.8);
-        opacity: 0.3;
-        filter: brightness(0.9);
+        transform: translateX(-50%);
+        clip-path: inset(85% 0 0 0);
+        opacity: 0.6;
+        filter: brightness(1.05) saturate(1.08);
         transform-origin: center bottom;
     }
-    25% {
-        transform: translateX(-50%) scaleY(0.7) scaleX(0.9);
-        opacity: 0.6;
-        filter: brightness(1.05);
+    15% {
+        transform: translateX(-50%);
+        clip-path: inset(70% 0 0 0);
+        opacity: 0.75;
+        filter: brightness(1.08) saturate(1.12);
+    }
+    30% {
+        transform: translateX(-50%);
+        clip-path: inset(55% 0 0 0);
+        opacity: 0.85;
+        filter: brightness(1.12) saturate(1.16);
     }
     50% {
-        transform: translateX(-50%) scaleY(1.1) scaleX(1.05);
-        opacity: 0.9;
-        filter: brightness(1.15);
+        transform: translateX(-50%);
+        clip-path: inset(35% 0 0 0);
+        opacity: 0.92;
+        filter: brightness(1.15) saturate(1.2);
     }
-    75% {
-        transform: translateX(-50%) scaleY(1.05) scaleX(1.02);
-        opacity: 1;
-        filter: brightness(1.1);
+    70% {
+        transform: translateX(-50%);
+        clip-path: inset(15% 0 0 0);
+        opacity: 0.96;
+        filter: brightness(1.1) saturate(1.12);
+    }
+    85% {
+        transform: translateX(-50%);
+        clip-path: inset(5% 0 0 0);
+        opacity: 0.98;
+        filter: brightness(1.03) saturate(1.06);
+    }
+    95% {
+        transform: translateX(-50%);
+        clip-path: inset(1% 0 0 0);
+        opacity: 0.99;
+        filter: brightness(1.01) saturate(1.02);
     }
     100% {
-        transform: translateX(-50%) scaleY(1) scaleX(1);
+        transform: translateX(-50%);
+        clip-path: inset(0% 0 0 0);
         opacity: 1;
-        filter: brightness(1);
+        filter: brightness(1) saturate(1);
         transform-origin: center bottom;
     }
 }

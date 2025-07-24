@@ -57,10 +57,17 @@
                     <div class="card-body text-center">
                         <div id="plantDisplay" class="plant-display">
                             <div class="plant-scene">
-                                <!-- Plant sprite (behind pot, bottom-aligned) -->
+                                <!-- Primary plant sprite (behind pot, bottom-aligned) -->
                                 <img id="plantSprite" class="plant-sprite" 
                                      src="assets/plant-sprites/stage-1.png" 
                                      alt="Plant"
+                                     onerror="this.style.display='none';">
+                                
+                                <!-- Secondary plant sprite for smooth transitions -->
+                                <img id="plantSpriteSecondary" class="plant-sprite plant-sprite-secondary" 
+                                     src="assets/plant-sprites/stage-1.png" 
+                                     alt="Plant Secondary"
+                                     style="opacity: 0;"
                                      onerror="this.style.display='none';">
                                 
                                 <!-- Pot sprite (in front, exact size) -->
